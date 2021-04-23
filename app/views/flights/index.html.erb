@@ -5,7 +5,11 @@
 <section id="flight-<%= flight.id %>">
   <strong>Flight number: <%= flight.number %> Airline: <%= flight.airline.name %></strong>
   <% flight.passengers.each do |passenger| %>
+  <section id="passenger-<%= passenger.id %>">
   <p>Passenger:<%= passenger.name %> </p>
+  <%= button_to "Remove Passenger", manifest_destroy_path(flight),
+                                    params: {passenger_id: passenger.id},
+                                    method: :delete %>
   <% end %>
 </section>
 <% end %>
