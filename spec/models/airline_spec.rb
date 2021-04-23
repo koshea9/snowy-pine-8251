@@ -19,12 +19,14 @@ RSpec.describe Airline, type: :model do
     @passenger_2 = Passenger.create!(name: 'amy', age: 50)
     @passenger_3 = Passenger.create!(name: 'craig', age: 10)
     @passenger_4 = Passenger.create!(name: 'sam', age: 30)
+    @passenger_5 = Passenger.create!(name: 'sam', age: 30)
 
     #manifest(join table)
     @manifest_1 = Manifest.create!(passenger: @passenger_4, flight: @flight_1)
     @manifest_2 = Manifest.create!(passenger: @passenger_2, flight: @flight_1)
     @manifest_3 = Manifest.create!(passenger: @passenger_3, flight: @flight_1)
     @manifest_4 = Manifest.create!(passenger: @passenger_1, flight: @flight_3)
+    @manifest_4 = Manifest.create!(passenger: @passenger_5, flight: @flight_1)
   end
 
   describe 'instance methods' do
