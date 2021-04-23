@@ -30,8 +30,15 @@ RSpec.describe Airline, type: :model do
   describe 'instance methods' do
     describe '#over_18_passenger_list' do
       it "returns a unique list of passengers for an airlines flight that are over 18" do
+        actual = @airline_1.over_18_passenger_list.map do |passenger|
+          passenger.name
+        end
 
-        expect(@airline_1.over_18_passenger_list).to eq([@passenger_1, @passenger_2, @passenger_4])
+        expected = [@passenger_1, @passenger_2, @passenger_4].map do |passenger|
+          passenger.name
+        end
+
+        expect(actual).to eq(expected.sort)
       end
     end
   end
