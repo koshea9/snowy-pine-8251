@@ -24,10 +24,6 @@ RSpec.describe "flights index page", type: :feature do
     @manifest_4 = Manifest.create!(passenger: @passenger_1, flight: @flight_3)
   end
 
-  # I see a list of all flight numbers
-  # And next to each flight number I see the name of the Airline of that flight
-  # And under each flight number I see the names of all that flight's passengers
-
   it 'shows a list of all flights by number and name of airline' do
     visit flights_path
 
@@ -48,6 +44,24 @@ RSpec.describe "flights index page", type: :feature do
     end
     within "#flight-#{@flight_3.id}" do
       expect(page).to have_content(@passenger_1.name)
+    end
+  end
+
+  # Next to each passengers name
+  # I see a link or button to remove that passenger from that flight
+  # When I click on that link/button
+  # I'm returned to the flights index page
+  # And I no longer see that passenger listed under that flight
+  it 'allows user to remove passenger from flight' do
+    visit flights_path
+
+    within "#flight-#{@flight_1.id}" do
+      expect(page).to have_content(@passenger_4.name)
+
+      click_button "Remove Passenger"
+
+      expect(current_path).to eq(flights_path)
+      expect(page).to_not have_content(@passenger_4.name)
     end
   end
 end
