@@ -1,10 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Airline, type: :model do
-  it {should have_many :flights}
-  it {should have_many(:manifests).through(:flights)}
-  it {should have_many(:passengers).through(:manifests)}
-
+RSpec.describe "airline's show page", type: :feature do
   before :each do
     #airlines(have many flights)
     @airline_1 = Airline.create!(name: '1 airline')
@@ -27,12 +23,16 @@ RSpec.describe Airline, type: :model do
     @manifest_4 = Manifest.create!(passenger: @passenger_1, flight: @flight_3)
   end
 
-  describe 'instance methods' do
-    describe '#over_18_passenger_list' do
-      it "returns a unique list of passengers for an airlines flight that are over 18" do
+  # Then I see a list of passengers that have flights on that airline
+  # And I see that this list is unique (no duplicate passengers)
+  # And I see that this list only includes adult passengers
 
-        expect(@airline_1.over_18_passenger_list).to eq([@passenger_1, @passenger_2, @passenger_4])
-      end
-    end
+  it "shows a unique list of adult passengers (>=18) that have flights on airline" do
+    visit airline_path(@airline_1)
+
+    expect(page).to have_content(@passenger_1.name)
+    expect(page).to have_content(@passenger_2.name)
+    expect(page).to have_content(@passenger_4.name)
+    expect(page).to_not have_content(@passenger_3.name)
   end
 end

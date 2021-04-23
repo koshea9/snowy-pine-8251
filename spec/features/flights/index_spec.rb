@@ -47,7 +47,7 @@ RSpec.describe "flights index page", type: :feature do
     end
   end
 
-  it 'allows user to remove passenger from flight' do
+  xit 'allows user to remove passenger from flight' do
     visit flights_path
 
     within "#flight-#{@flight_1.id}" do
