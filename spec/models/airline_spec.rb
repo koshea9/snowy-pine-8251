@@ -19,14 +19,14 @@ RSpec.describe Airline, type: :model do
     @passenger_2 = Passenger.create!(name: 'amy', age: 50)
     @passenger_3 = Passenger.create!(name: 'craig', age: 10)
     @passenger_4 = Passenger.create!(name: 'sam', age: 30)
-    @passenger_5 = Passenger.create!(name: 'sam', age: 30)
 
     #manifest(join table)
     @manifest_1 = Manifest.create!(passenger: @passenger_4, flight: @flight_1)
     @manifest_2 = Manifest.create!(passenger: @passenger_2, flight: @flight_1)
     @manifest_3 = Manifest.create!(passenger: @passenger_3, flight: @flight_1)
-    @manifest_4 = Manifest.create!(passenger: @passenger_1, flight: @flight_3)
-    @manifest_4 = Manifest.create!(passenger: @passenger_5, flight: @flight_1)
+    @manifest_5 = Manifest.create!(passenger: @passenger_1, flight: @flight_3)
+    @manifest_6 = Manifest.create!(passenger: @passenger_1, flight: @flight_2)
+    @manifest_8 = Manifest.create!(passenger: @passenger_4, flight: @flight_3)
   end
 
   describe 'instance methods' do
@@ -42,6 +42,20 @@ RSpec.describe Airline, type: :model do
 
         expect(actual).to eq(expected.sort)
       end
+    end
+  end
+
+  describe '#over_18_passenger_list_sort_by_most_flights' do
+    it "returns a unique list of passengers for an airlines flight that are over 18 and orders by most flights" do
+      actual = @airline_1.over_18_passenger_list.map do |passenger|
+        passenger.name
+      end
+
+      expected = [@passenger_4, @passenger_1, @passenger_2].map do |passenger|
+        passenger.name
+      end
+
+      expect(actual).to eq(expected)
     end
   end
 end
