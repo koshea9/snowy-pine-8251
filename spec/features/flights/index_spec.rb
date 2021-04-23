@@ -47,7 +47,7 @@ RSpec.describe "flights index page", type: :feature do
     end
   end
 
-  xit 'allows user to remove passenger from flight' do
+  it 'allows user to remove passenger from flight' do
     visit flights_path
 
     within "#flight-#{@flight_1.id}" do
@@ -58,11 +58,8 @@ RSpec.describe "flights index page", type: :feature do
 
       expect(current_path).to eq(flights_path)
       end
-    visit flights_path
-    within "#flight-#{@flight_1.id}" do
-
+      
       expect(page).to_not have_content(@passenger_4.name)
-      end
     end
   end
 end
